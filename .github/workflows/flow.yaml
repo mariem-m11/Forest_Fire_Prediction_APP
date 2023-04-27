@@ -29,6 +29,6 @@ jobs:
         
     - name: Run W&B monitoring
       run: |
-        pip install wandb
-        wandb login $WB_API_KEY
-        python train.py
+       pip install wandb
+       echo "WB_API_KEY=${{ secrets.WB_API_KEY }}" > .env
+       python train.py
