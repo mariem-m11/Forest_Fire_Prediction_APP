@@ -31,5 +31,5 @@ jobs:
     - name: Run W&B monitoring
       run: |
         pip install wandb
-        export WANDB_API_KEY=${{ secrets.WANDB_API_KEY }}
+        export WANDB_API_KEY=${{ secrets.WB_API_KEY }}
         python train.py
