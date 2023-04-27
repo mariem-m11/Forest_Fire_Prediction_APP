@@ -13,8 +13,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
-from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve, roc_auc_score
-
+from sklearn.metrics import accuracy_score, confusion_matrix,  precision_score, recall_score, f1_score, confusion_matrix, roc_curve, roc_auc_score
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 from warnings import filterwarnings
@@ -66,6 +65,14 @@ df1[["temp", "Ws", "Rain", "FFMC", "DMC", "DC", "ISI", "BUI", "FWI"]] = df1[
 ].astype("float")
 X = df1[["temp", "Ws", "Rain", "FFMC", "DMC", "ISI"]]
 y = df1[["classes"]]
+
+sns.set(rc={'figure.figsize':(15,10)})
+heatmap_plot = sns.heatmap(df1.corr(), annot=True)
+wandb.log({"heatmap": wandb.Image("heatmap.png")})
+# Save the plot as an image
+heatmap_plot.figure.savefig("heatmap.png")
+
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, random_state=config["random_state"], test_size=config["test_size"]
 )
@@ -86,10 +93,29 @@ logistic_regression = LogisticRegression(
 logistic_regression.fit(X_train_scaled, y_train)
 LogisticRegression()
 Logistic_Regression_Prediction = logistic_regression.predict(X_test_scaled)
+
+# Make predictions using the testing data
+y_pred = Logistic_Regression_Prediction
+# Now you have the true labels and predicted labels
+y_true = y_test
+
 accuracy = accuracy_score(y_test, Logistic_Regression_Prediction)
+precision = precision_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
+recall = recall_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
+f1 = f1_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
+cm = confusion_matrix(y_true, y_pred)
+wandb.log({"confusion_matrix": wbp.confusion_matrix(y_true, y_pred, cm)})
+
+generated_text = "This is a sample generated text."
+wandb.log({"generated_text": wandb.Html(f"<pre>{generated_text}</pre>")})
 
 # Log accuracy to W&B
-wandb.log({"accuracy": accuracy})
+wandb.log({
+    "accuracy": accuracy,
+    "precision": precision,
+    "recall": recall,
+    "f1_score": f1
+})
 
 logistic_regression.predict([[-0.67601725, -0.56048801, -0.56048801, -0.65413145,-0.36861657, -0.90704249]])
 
