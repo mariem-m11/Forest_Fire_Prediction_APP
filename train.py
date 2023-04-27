@@ -66,11 +66,6 @@ df1[["temp", "Ws", "Rain", "FFMC", "DMC", "DC", "ISI", "BUI", "FWI"]] = df1[
 X = df1[["temp", "Ws", "Rain", "FFMC", "DMC", "ISI"]]
 y = df1[["classes"]]
 
-sns.set(rc={'figure.figsize':(15,10)})
-heatmap_plot = sns.heatmap(df1.corr(), annot=True)
-wandb.log({"heatmap": wandb.Image("heatmap.png")})
-# Save the plot as an image
-heatmap_plot.figure.savefig("heatmap.png")
 
 
 X_train, X_test, y_train, y_test = train_test_split(
