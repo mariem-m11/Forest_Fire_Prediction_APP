@@ -108,9 +108,6 @@ wandb.log({
     "f1_score": f1
 })
 
-wandb.log({"confusion_matrix": wandb.confusion_matrix(y_true, y_pred, cm)})
-generated_text = "This is a sample generated text."
-
 cm = confusion_matrix(y_true, y_pred)
 # Plot and log the confusion matrix
 fig, ax = plt.subplots()
