@@ -91,14 +91,5 @@ accuracy = accuracy_score(y_test, Logistic_Regression_Prediction)
 # Log accuracy to W&B
 wandb.log({"accuracy": accuracy})
 
-logistic_regression.predict(
-    [
-        -0.67601725,
-        -0.56048801,
-        -0.56048801,
-        -0.65413145,
-        -0.36861657,
-        -0.90704249,
-    ]
-)
+logistic_regression.predict([[-0.67601725, -0.56048801, -0.56048801, -0.65413145,-0.36861657, -0.90704249]])
 
