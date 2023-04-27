@@ -21,9 +21,6 @@ from warnings import filterwarnings
 
 import wandb
 
-filterwarnings('ignore')
-%matplotlib inline
-
 # Initialize W&B
 config = {
     "random_state": 32,
