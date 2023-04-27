@@ -33,7 +33,7 @@ config = {
         "max_iter": 100,
     },
 }
-wandb.init(project="my_project", config=config)
+wandb.init(project="first", config=config)
 
 df1 = pd.read_csv("Updated.csv", header=1)
 head = [
