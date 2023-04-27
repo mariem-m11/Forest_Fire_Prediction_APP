@@ -107,12 +107,17 @@ wandb.log({
     "recall": recall,
     "f1_score": f1
 })
-cm = confusion_matrix(y_true, y_pred)
 
 wandb.log({"confusion_matrix": wandb.confusion_matrix(y_true, y_pred, cm)})
-
 generated_text = "This is a sample generated text."
-wandb.sklearn.plot_confusion_matrix(y_true, y_pred, cm)
+
+cm = confusion_matrix(y_true, y_pred)
+# Plot and log the confusion matrix
+fig, ax = plt.subplots()
+cm_display = ConfusionMatrixDisplay(cm, display_labels=np.unique(y)).plot(ax=ax)
+plt.title("Confusion Matrix")
+wandb.log({"confusion_matrix": plt})
+
 logistic_regression.predict([[-0.67601725, -0.56048801, -0.56048801, -0.65413145,-0.36861657, -0.90704249]])
 
 
