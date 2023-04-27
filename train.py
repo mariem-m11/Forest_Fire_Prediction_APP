@@ -97,12 +97,8 @@ y_true = y_test
 accuracy = accuracy_score(y_test, Logistic_Regression_Prediction)
 precision = precision_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
 recall = recall_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
-f1 = f1_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
-cm = confusion_matrix(y_true, y_pred)
-wandb.log({"confusion_matrix": wbp.confusion_matrix(y_true, y_pred, cm)})
 
-generated_text = "This is a sample generated text."
-wandb.log({"generated_text": wandb.Html(f"<pre>{generated_text}</pre>")})
+f1 = f1_score(y_true, y_pred, average='weighted')  # Use 'weighted' if dealing with multi-class classification
 
 # Log accuracy to W&B
 wandb.log({
@@ -111,6 +107,13 @@ wandb.log({
     "recall": recall,
     "f1_score": f1
 })
+cm = confusion_matrix(y_true, y_pred)
 
+wandb.log({"confusion_matrix": wandb.confusion_matrix(y_true, y_pred, cm)})
+
+generated_text = "This is a sample generated text."
+wandb.sklearn.plot_confusion_matrix(y_true, y_pred, cm)
 logistic_regression.predict([[-0.67601725, -0.56048801, -0.56048801, -0.65413145,-0.36861657, -0.90704249]])
+
+
 
