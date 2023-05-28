@@ -33,3 +33,11 @@ jobs:
         pip install wandb[sklearn]
         export WANDB_API_KEY=${{ secrets.WB_API_KEY }}
         python train.py
+        
+    - name: build-and-deploy:
+     runs-on: ubuntu-latest
+     steps:
+     - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        environment: 'AzureStack'
