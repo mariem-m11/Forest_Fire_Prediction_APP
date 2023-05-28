@@ -33,7 +33,9 @@ jobs:
         pip install wandb[sklearn]
         export WANDB_API_KEY=${{ secrets.WB_API_KEY }}
         python train.py
-        
+    - name: Check Azure CLI version
+      run: az --version
+    
     - name: build-and-deploy
       uses: azure/login@v1
       with:
