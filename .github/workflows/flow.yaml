@@ -34,7 +34,7 @@ jobs:
         export WANDB_API_KEY=${{ secrets.WB_API_KEY }}
         python train.py
         
-    - name: build-and-deploy:
+    - name: build-and-deploy
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
