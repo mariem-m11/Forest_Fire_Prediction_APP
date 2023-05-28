@@ -35,9 +35,7 @@ jobs:
         python train.py
         
     - name: build-and-deploy:
-     runs-on: ubuntu-latest
-     steps:
-     - uses: azure/login@v1
+      uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         environment: 'AzureStack'
